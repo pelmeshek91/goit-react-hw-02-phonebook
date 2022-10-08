@@ -8,9 +8,6 @@ export class App extends Component {
     contacts: [],
     name: '',
   };
-  handleChange = e => {
-    this.setState({ name: e.currentTarget.value });
-  };
 
   render() {
     return (
@@ -19,7 +16,7 @@ export class App extends Component {
           <Form />
         </Section>
         <Section title="Contacts">
-          <PhoneList />
+          <PhoneList contacts={this.state.contacts} />
         </Section>
       </>
     );
