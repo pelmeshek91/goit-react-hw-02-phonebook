@@ -1,4 +1,5 @@
 import s from './Phonebook.module.css';
+import PropTypes from 'prop-types';
 
 export const PhoneBook = ({ contactsList, deleteContact }) => {
   return (
@@ -22,4 +23,9 @@ export const PhoneBook = ({ contactsList, deleteContact }) => {
       })}
     </ul>
   );
+};
+
+PhoneBook.propTypes = {
+  contactsList: PropTypes.array.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 };
