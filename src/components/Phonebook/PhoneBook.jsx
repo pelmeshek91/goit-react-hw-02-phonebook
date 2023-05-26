@@ -1,12 +1,22 @@
-export const PhoneBook = ({ contactsList }) => {
+import s from './Phonebook.module.css';
+
+export const PhoneBook = ({ contactsList, deleteContact }) => {
   return (
-    <ul>
+    <ul className={s.contactsList}>
       {contactsList.map(({ name, number, id }) => {
         return (
-          <li key={id}>
+          <li className={s.contactsItem} key={id}>
             <p>
               {name} : {number}
             </p>
+            <button
+              type="button"
+              onClick={() => {
+                deleteContact(id);
+              }}
+            >
+              Delete
+            </button>
           </li>
         );
       })}

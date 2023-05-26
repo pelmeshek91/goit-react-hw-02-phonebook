@@ -1,8 +1,10 @@
+import s from './Filter.module.css';
+
 export const Filter = ({ filter, filterContacts }) => {
   return (
-    <div>
+    <div className={s.filterWrap}>
       <label>
-        <p>Find contact by name</p>
+        <p className={s.filterTitle}>Find contact by name</p>
         <input type="text" value={filter} onChange={filterContacts} />
       </label>
     </div>

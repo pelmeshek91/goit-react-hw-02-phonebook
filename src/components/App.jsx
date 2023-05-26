@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Form } from './Form/Form';
 import { Filter } from './Filter/Filter';
 import { PhoneBook } from './Phonebook/PhoneBook';
+import s from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -13,26 +14,48 @@ export class App extends Component {
     ],
     filter: '',
   };
-  addContactName = contact => {
+  addContact = newContact => {
+    this.state.contacts.some(
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+    )
+      ? alert(`${newContact.name} is already in contacts!`)
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, newContact],
+        }));
+  };
+
+  handleChangeFilter = e => {
+    const { value } = e.target;
+    this.setState({ filter: value });
+  };
+
+  filterContactsList = () => {
+    const contactsList = this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+    return contactsList;
+  };
+  removeContact = id => {
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, contact],
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
   };
-  filterContacts = e => {
-    const { value } = e.target;
-    this.setState(() => ({ filter: value }));
-  };
+
   render() {
+    const contactsList = this.filterContactsList();
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <Form addContactName={this.addContactName} />
-        <h2>Contacts</h2>
+      <div className={s.phoneBook}>
+        <h1 className={s.title}>Phonebook</h1>
+        <Form addContact={this.addContact} />
+        <h2 className={s.title}>Contacts</h2>
         <Filter
-          filterContacts={this.filterContacts}
+          filterContacts={this.handleChangeFilter}
           filter={this.state.filter}
         />
-        <PhoneBook contactsList={this.state.contacts} />
+        <PhoneBook
+          contactsList={contactsList}
+          deleteContact={this.removeContact}
+        />
       </div>
     );
   }
