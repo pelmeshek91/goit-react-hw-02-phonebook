@@ -18,7 +18,7 @@ export class Form extends Component {
     e.preventDefault();
     const newContact = { ...this.state, id: nanoid() };
     this.props.addContact(newContact);
-    e.reset()
+    e.target.reset()
   };
 
   render() {
