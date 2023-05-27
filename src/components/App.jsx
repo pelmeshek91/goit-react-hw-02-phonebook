@@ -2,6 +2,8 @@ import { Component } from 'react';
 import { Form } from './Form/Form';
 import { Filter } from './Filter/Filter';
 import { PhoneBook } from './Phonebook/PhoneBook';
+import { nanoid } from 'nanoid';
+
 import s from './App.module.css';
 
 export class App extends Component {
@@ -20,12 +22,11 @@ export class App extends Component {
     )
       ? alert(`${newContact.name} is already in contacts!`)
       : this.setState(prevState => ({
-          contacts: [...prevState.contacts, newContact],
+          contacts: [...prevState.contacts, { ...newContact, id: nanoid() }],
         }));
   };
 
-  handleChangeFilter = e => {
-    const { value } = e.target;
+  handleChangeFilter = ({ target: { value } }) => {
     this.setState({ filter: value });
   };
 
